@@ -219,4 +219,55 @@ public class SortingUtils {
 			}
 		} while (swapped);
 	}
+	
+	/**
+	 * Sorts an array using the quicksort but with 3-way partitioning.
+	 * Average case: O( N lg N )
+	 * 
+	 * @param toSort
+	 * 		array to sort.
+	 */
+	 public static void quickSort3( Comparable[] toSort, int low, int high ) {
+        
+        	if( high <= low )
+            		return;
+        
+        	int lowHalf = low;
+        	int highHalf = high;
+        
+        	Comparable partition = toSort[ low ];
+        
+        	int i = low;
+        
+        	while( i <= highHalf ) {
+            
+            		int placement = toSort[ i ].compareTo( partition );
+            
+            		if( placement == -1 ) {
+
+                		Comparable temp = toSort[ lowHalf ];
+                		toSort[ lowHalf ] = toSort[ i ];
+                		toSort[ i ] = temp;
+                		lowHalf++;
+                		i++;
+                
+            		}
+            		else if( placement == 1 ) {
+          
+               			Comparable temp = toSort[ i ];
+                		toSort[ i ] = toSort[ highHalf ];
+                		toSort[ highHalf ] = temp;
+                		highHalf--;
+                
+            		}
+            		else
+                		i++;
+            
+        	}
+        
+        	quickSort3( toSort, low, lowHalf - 1 );
+        	quickSort3( toSort, highHalf + 1, high );
+        
+        
+    	}
 }
